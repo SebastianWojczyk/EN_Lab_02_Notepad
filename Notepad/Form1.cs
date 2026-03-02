@@ -14,6 +14,7 @@ namespace Notepad
     {
         public Form1()
         {
+            //new line
             InitializeComponent();
         }
     }
