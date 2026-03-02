@@ -13,10 +13,33 @@ namespace Notepad
 {
     public partial class Form1 : Form
     {
+        private string myFileName;
+
+        private string MyFileName
+        {
+            get
+            {
+                return myFileName;
+            }
+            set
+            {
+                myFileName = value;
+                if (myFileName == "")
+                {
+                    this.Text = "New file";
+                }
+                else
+                {
+                    this.Text = Path.GetFileName(myFileName);
+                }
+            }
+        }
+
         public Form1()
         {
             //new line
             InitializeComponent();
+            MyFileName = "";
         }
 
         private void quitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -33,6 +56,7 @@ namespace Notepad
         {
             richTextBoxEditor.Clear();
             //richTextBoxEditor.Text = "";
+            MyFileName = "";
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
@@ -46,6 +70,8 @@ namespace Notepad
                 string filePath = openFileDialog.FileName;
                 string fileContent = File.ReadAllText(filePath);
                 richTextBoxEditor.Text = fileContent;
+
+                MyFileName = filePath;
             }
         }
 
@@ -59,6 +85,8 @@ namespace Notepad
             {
                 string filePath = saveFileDialog.FileName;
                 File.WriteAllText(filePath, richTextBoxEditor.Text);
+
+                MyFileName = filePath;
             }
         }
 
